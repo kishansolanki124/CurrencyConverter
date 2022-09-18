@@ -1,0 +1,26 @@
+1. API integration
+2. DB integration
+
+3. UI integration
+4. Test cases
+5. optimisation code for formation, security, sorting
+8. Splash screen
+7. Support for Android 12 Splash
+6. clean code and submit
+
+
+
+if(data exist in db) {
+    get data from db
+    if(last synced data before 30 minutes) {
+        saveAPIResponseToDBAndReturnUpdatedData()
+    }
+} else {
+    saveAPIResponseToDBAndReturnUpdatedData()
+}
+
+saveAPIResponseToDBAndReturnUpdatedData() : UpdatedData {
+     get data from server
+     save to db
+     get data from db
+}
