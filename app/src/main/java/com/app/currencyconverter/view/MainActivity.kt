@@ -1,5 +1,6 @@
 package com.app.currencyconverter.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -8,22 +9,24 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.currencyconverter.CurrencyAPIService
 import com.app.currencyconverter.R
 import com.app.currencyconverter.apputils.MySpinnerItemSelectionListener
-import com.app.currencyconverter.apputils.showToast
+import com.app.currencyconverter.apputils.showSnackBar
 import com.app.currencyconverter.databinding.ActivityMainBinding
-import com.app.currencyconverter.pojo.LatestCurrencyRatesModel
-import com.app.currencyconverter.view.adapter.ProductCategoryAdapter
-import com.app.currencyconverter.viewmodel.ProductViewModel
+import com.app.currencyconverter.db.CurrencyEntity
+import com.app.currencyconverter.view.adapter.CurrencyGridAdapter
+import com.app.currencyconverter.viewmodel.CurrencyViewModel
 
 class MainActivity : AppCompatActivity() {
 
+    //todo change lateinit to lazy wherever possible
     private lateinit var binding: ActivityMainBinding
-    private lateinit var govtWorkNewsAdapter: ProductCategoryAdapter
+    private lateinit var currencyGridAdapter: CurrencyGridAdapter
     private var currencyType = ""
     private lateinit var layoutManager: LinearLayoutManager
-    private var currencyAndTypeList = ArrayList<LatestCurrencyRatesModel.CurrencyAndTypeList>()
-    private lateinit var categoryViewModel: ProductViewModel
+    private var currencyAndTypeList = ArrayList<CurrencyEntity>()
+    private lateinit var categoryViewModel: CurrencyViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,43 +34,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        startService(Intent(this, CurrencyAPIService::class.java))
+
         initRecyclerView()
-
-        //categoryViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
-        categoryViewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        )[ProductViewModel::class.java]
-
-//        categoryViewModel.currencyRates().observe(this) {
-//            //handleResponse(it)
-//        }
-
-        categoryViewModel.getUpdatedDataFromDB().observe(this) { currencyList ->
-            currencyAndTypeList.clear()
-            currencyList.forEach {
-                currencyAndTypeList.add(
-                    LatestCurrencyRatesModel.CurrencyAndTypeList
-                        (it.currencyAmount, it.currencyType)
-                )
-            }
-
-            govtWorkNewsAdapter.reset()
-            govtWorkNewsAdapter.setItem(currencyAndTypeList)
-            setupSpinner()
-        }
-
-//        //get latest currencies
-//        categoryViewModel.latest()
+        initViewModel()
 
         binding.btConvert.setOnClickListener {
             if (binding.etCurrencyInput.text.toString().isNotEmpty() &&
                 binding.etCurrencyInput.text.toString().toDouble() > 0.0
                 && currencyType.isNotEmpty()
-//                binding.etCurrencyType.text.toString().isNotEmpty() &&
-//                binding.etCurrencyType.text.toString().trim().length == 3
             ) {
-                //val currencyType = binding.etCurrencyType.text.toString()
                 var amount = 0.0
                 for (item in currencyAndTypeList) {
                     if (item.currencyType == currencyType) {
@@ -81,46 +57,44 @@ class MainActivity : AppCompatActivity() {
                     for (item in currencyAndTypeList) {
                         item.currencyAmount = convertedUSD * item.currencyAmount
                     }
-                    govtWorkNewsAdapter.notifyItemRangeChanged(0, currencyAndTypeList.size)
+                    currencyGridAdapter.notifyItemRangeChanged(0, currencyAndTypeList.size)
                 } else {
-                    showToast("Currency Not Found")
+                    showSnackBar("Currency Not Found")
                 }
             } else {
-                showToast("enter valid fields")
+                showSnackBar("enter valid fields")
             }
         }
     }
 
-//    private fun handleResponse(latestCurrencyRatesModel: LatestCurrencyRatesModel?) {
-//        if (null != latestCurrencyRatesModel) {
-//            val jsonObject: JsonObject =
-//                JsonParser().parse(Gson().toJson(latestCurrencyRatesModel.rates)).asJsonObject
-//            val keys = jsonObject.keySet()
-//            currencyAndTypeList = ArrayList()
-//            for (language in keys) {
-//                currencyAndTypeList.add(
-//                    LatestCurrencyRatesModel.CurrencyAndTypeList(
-//                        jsonObject.get(language).toString().toDouble(), language
-//                    )
-//                )
-//            }
-//            govtWorkNewsAdapter.reset()
-//            govtWorkNewsAdapter.setItem(currencyAndTypeList)
-//        }
-//    }
+    private fun initViewModel() {
+        categoryViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        )[CurrencyViewModel::class.java]
+
+        categoryViewModel.currencyListFromDb().observe(this) { currencyList ->
+            currencyAndTypeList.clear()
+            currencyAndTypeList.addAll(currencyList)
+
+            currencyGridAdapter.reset()
+            currencyGridAdapter.setItems(currencyAndTypeList)
+
+            setupSpinner()
+        }
+    }
 
     private fun initRecyclerView() {
         layoutManager = GridLayoutManager(this, 3)
         binding.rvCurrency.layoutManager = layoutManager
 
-        govtWorkNewsAdapter = ProductCategoryAdapter {
-
-        }
-        binding.rvCurrency.adapter = govtWorkNewsAdapter
+        currencyGridAdapter = CurrencyGridAdapter()
+        binding.rvCurrency.adapter = currencyGridAdapter
     }
 
     private fun setupSpinner() {
-        var currencyTypeList : ArrayList<String> = ArrayList()
+        //todo work here, update this code
+        val currencyTypeList: ArrayList<String> = ArrayList()
         for (item in currencyAndTypeList) {
             currencyTypeList.add(item.currencyType)
         }

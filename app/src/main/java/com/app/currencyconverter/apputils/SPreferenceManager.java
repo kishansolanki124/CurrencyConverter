@@ -31,18 +31,18 @@ public class SPreferenceManager {
         return mInstance;
     }
 
-    public Boolean isLogin() {
-        return mPreferences.getBoolean(AppConstants.IS_LOGIN, false);
-    }
-
-    public void saveSession(String mobileNumber) {
-        setBoolean(AppConstants.IS_LOGIN, true);
-        setString(AppConstants.MOBILE, mobileNumber);
-    }
-
-    public String getSession() {
-        return mPreferences.getString(AppConstants.MOBILE, "");
-    }
+//    public Boolean isLogin() {
+//        return mPreferences.getBoolean(AppConstants.IS_LOGIN, false);
+//    }
+//
+//    public void saveSession(String mobileNumber) {
+//        setBoolean(AppConstants.IS_LOGIN, true);
+//        setString(AppConstants.MOBILE, mobileNumber);
+//    }
+//
+//    public String getSession() {
+//        return mPreferences.getString(AppConstants.MOBILE, "");
+//    }
 
     public void setString(String key, String value) {
         mEditor.putString(key, value).apply();

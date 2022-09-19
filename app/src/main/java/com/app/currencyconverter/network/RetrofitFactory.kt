@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.net.HttpURLConnection
 import java.util.concurrent.TimeUnit
 
-
+//todo work here
 //const val BASE_URL = "http://localhost:9000/"
 //const val BASE_URL = BuildConfig.JAVA_BASE_URL
 
@@ -35,27 +35,6 @@ object RetrofitFactory {
                                 .newBuilder()
                                 .build()
                             return chain.proceed(request)
-//                            if (SPreferenceManager.getInstance(GroceriesApplication.getApplication()).isLogin) {
-//                                val request: Request = chain.request()
-//                                    .newBuilder()
-//                                    .addHeader(
-//                                        AppConstants.APIHeaders.USER_ID,
-//                                        SPreferenceManager.getInstance(GroceriesApplication.getApplication())
-//                                            .session!!.userId!!.toString()
-//                                    )
-//                                    .addHeader(
-//                                        AppConstants.APIHeaders.AUTHORISATION,
-//                                        SPreferenceManager.getInstance(GroceriesApplication.getApplication())
-//                                            .session!!.jwtToken!!
-//                                    )
-//                                    .build()
-//                                return chain.proceed(request)
-//                            } else {
-//                                val request: Request = chain.request()
-//                                    .newBuilder()
-//                                    .build()
-//                                return chain.proceed(request)
-//                            }
                         }
                     }
                 )
