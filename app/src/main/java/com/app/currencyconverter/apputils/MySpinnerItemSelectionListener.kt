@@ -5,7 +5,12 @@ import android.widget.AdapterView
 
 abstract class MySpinnerItemSelectionListener : AdapterView.OnItemSelectedListener {
 
-    abstract fun onUserItemSelected(parent: AdapterView<*>?, view: View?, dropdownPosition: Int, id: Long)
+    abstract fun onUserItemSelected(
+        parent: AdapterView<*>?,
+        view: View?,
+        dropdownPosition: Int,
+        id: Long
+    )
 
     private var check = 0
 

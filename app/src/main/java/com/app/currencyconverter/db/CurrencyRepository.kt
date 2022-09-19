@@ -2,29 +2,11 @@ package com.app.currencyconverter.db
 
 import androidx.lifecycle.LiveData
 
-class CurrencyRepository(private val notesDao: CurrencyDao) {
+class CurrencyRepository(private val currencyDao: CurrencyDao) {
 
-    val allNotes: LiveData<List<CurrencyEntity>> = notesDao.getAllNotes()
+    val allCurrencies: LiveData<List<CurrencyEntity>> = currencyDao.getAllCurrencies()
 
-    // on below line we are creating an insert method
-    // for adding the note to our database.
-//    suspend fun insert(note: CurrencyEntity) {
-//        notesDao.insert(note)
-//    }
-
-    suspend fun insertAll(note: List<CurrencyEntity>) {
-        notesDao.insertAll(note)
+    suspend fun insertAll(currencyList: List<CurrencyEntity>) {
+        currencyDao.insertAll(currencyList)
     }
-
-//    // on below line we are creating a delete method
-//    // for deleting our note from database.
-//    suspend fun delete(note: CurrencyEntity){
-//        notesDao.delete(note)
-//    }
-
-//     // on below line we are creating a update method for
-//     // updating our note from database.
-//     suspend fun update(note: CurrencyEntity){
-//        notesDao.update(note)
-//    }
 }

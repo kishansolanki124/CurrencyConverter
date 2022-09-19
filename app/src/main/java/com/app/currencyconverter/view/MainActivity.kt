@@ -1,6 +1,5 @@
 package com.app.currencyconverter.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -9,12 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.currencyconverter.CurrencyAPIService
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.app.currencyconverter.R
 import com.app.currencyconverter.apputils.MySpinnerItemSelectionListener
 import com.app.currencyconverter.apputils.showSnackBar
 import com.app.currencyconverter.databinding.ActivityMainBinding
 import com.app.currencyconverter.db.CurrencyEntity
+import com.app.currencyconverter.service.CurrencyRatesWorker
 import com.app.currencyconverter.view.adapter.CurrencyGridAdapter
 import com.app.currencyconverter.viewmodel.CurrencyViewModel
 
@@ -34,7 +35,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        startService(Intent(this, CurrencyAPIService::class.java))
+        //todo work here, remove this
+        //startService(Intent(this, CurrencyAPIService::class.java))
+        val uploadWorkRequest = OneTimeWorkRequestBuilder<CurrencyRatesWorker>().build()
+        val workManager = WorkManager.getInstance(applicationContext)
+        workManager.enqueue(uploadWorkRequest)
 
         initRecyclerView()
         initViewModel()
@@ -73,7 +78,7 @@ class MainActivity : AppCompatActivity() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         )[CurrencyViewModel::class.java]
 
-        categoryViewModel.currencyListFromDb().observe(this) { currencyList ->
+        categoryViewModel.currencyList().observe(this) { currencyList ->
             currencyAndTypeList.clear()
             currencyAndTypeList.addAll(currencyList)
 
