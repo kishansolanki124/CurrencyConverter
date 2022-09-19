@@ -19,6 +19,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
+/**
+ * Work Manager to grab latest currencies from server and update it to DB,
+ * API will be called only if last updated before 30 minutes
+ */
 class CurrencyRatesWorker(appContext: Context, workerParameters: WorkerParameters) :
     Worker(appContext, workerParameters) {
 

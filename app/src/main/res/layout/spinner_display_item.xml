@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.AppCompatTextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:drawableEnd="@drawable/drop_down_icon"
-    android:paddingHorizontal="10dp"
-    android:paddingVertical="5dp"
+    android:paddingHorizontal="15dp"
     android:textColor="@color/black"
-    android:textSize="13sp"
-    app:drawableTint="@android:color/transparent" />
+    android:textSize="14sp"
+    tools:text="Select Item" />

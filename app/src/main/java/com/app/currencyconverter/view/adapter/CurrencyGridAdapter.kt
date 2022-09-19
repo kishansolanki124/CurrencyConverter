@@ -2,9 +2,11 @@ package com.app.currencyconverter.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.currencyconverter.databinding.CurrencyListItemBinding
 import com.app.currencyconverter.db.CurrencyEntity
+import com.app.currencyconverter.view.helper.CurrencyDiffCallback
 
 class CurrencyGridAdapter :
     RecyclerView.Adapter<CurrencyGridAdapter.HomeOffersViewHolder>() {
@@ -24,18 +26,23 @@ class CurrencyGridAdapter :
         holder.bindForecast(list[position])
     }
 
-    fun setItems(list: ArrayList<CurrencyEntity>) {
-        val currentSize = this.list.size
-        this.list.addAll(list)
-        notifyItemRangeInserted(currentSize, this.list.size)
+    fun setItems(newList: ArrayList<CurrencyEntity>) {
+//        val currentSize = this.list.size
+//        this.list.addAll(list)
+//        notifyItemRangeInserted(currentSize, this.list.size)
+        val diffCallback = CurrencyDiffCallback(this.list, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        this.list.clear()
+        this.list.addAll(newList)
+        diffResult.dispatchUpdatesTo(this)
     }
 
-    //todo work here, change from rest to diff utils for showing skills
-    fun reset() {
-        val currentSize = this.list.size
-        this.list.clear()
-        notifyItemRangeRemoved(0, currentSize)
-    }
+//    //todo work here, change from rest to diff utils for showing skills
+//    fun reset() {
+//        val currentSize = this.list.size
+//        this.list.clear()
+//        notifyItemRangeRemoved(0, currentSize)
+//    }
 
     override fun getItemCount(): Int = list.size
 

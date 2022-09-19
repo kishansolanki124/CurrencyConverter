@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.16" />
-        <entry key="app/src/main/res/layout/currency_list_item.xml" value="0.2375" />
+        <entry key="app/src/main/res/drawable/black_border_bg.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/ic__679900_arrow_drop_down_line_icon.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/spinner_dropdown.xml" value="0.1655" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/currency_list_item.xml" value="0.22" />
         <entry key="app/src/main/res/layout/spinner_display_item.xml" value="0.22135416666666666" />
         <entry key="app/src/main/res/layout/spinner_dropdown_item.xml" value="0.22135416666666666" />
       </map>
