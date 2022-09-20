@@ -8,19 +8,19 @@
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_currency_input"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/dp_200"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/black_border_bg"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@drawable/black_border_white_bg"
         android:hint="@string/hint_enter_amount"
         android:imeOptions="actionDone"
         android:inputType="numberDecimal"
         android:maxLength="10"
-        android:padding="10dp"
+        android:padding="@dimen/dp_10"
         android:textColor="@color/black"
-        android:textColorHint="#777"
+        android:textColorHint="@color/color_hint"
         android:textCursorDrawable="@color/black"
-        android:textSize="14sp"
+        android:textSize="@dimen/sp_14"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,18 +29,20 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:background="@drawable/spinner_dropdown"
+        android:paddingHorizontal="@dimen/dp_10"
         app:layout_constraintBottom_toBottomOf="@id/et_currency_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/et_currency_input"
-        app:layout_constraintTop_toTopOf="@id/et_currency_input" />
+        app:layout_constraintTop_toTopOf="@id/et_currency_input"
+        tools:listitem="@layout/spinner_display_item" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_convert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/dp_10"
         android:background="@color/purple_500"
-        android:paddingHorizontal="20dp"
+        android:paddingHorizontal="@dimen/dp_20"
         android:text="@string/convert"
         android:textAllCaps="true"
         android:textColor="@color/white"
@@ -52,7 +54,7 @@
         android:id="@+id/rv_currency"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/dp_10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_convert"

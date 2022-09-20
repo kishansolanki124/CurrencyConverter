@@ -27,22 +27,12 @@ class CurrencyGridAdapter :
     }
 
     fun setItems(newList: ArrayList<CurrencyEntity>) {
-//        val currentSize = this.list.size
-//        this.list.addAll(list)
-//        notifyItemRangeInserted(currentSize, this.list.size)
         val diffCallback = CurrencyDiffCallback(this.list, newList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.list.clear()
         this.list.addAll(newList)
         diffResult.dispatchUpdatesTo(this)
     }
-
-//    //todo work here, change from rest to diff utils for showing skills
-//    fun reset() {
-//        val currentSize = this.list.size
-//        this.list.clear()
-//        notifyItemRangeRemoved(0, currentSize)
-//    }
 
     override fun getItemCount(): Int = list.size
 

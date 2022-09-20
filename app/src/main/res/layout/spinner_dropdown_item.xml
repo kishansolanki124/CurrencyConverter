@@ -2,11 +2,10 @@
 <androidx.appcompat.widget.AppCompatTextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@android:id/text1"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/dp_100"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:paddingHorizontal="10dp"
-    android:paddingVertical="5dp"
+    android:layout_margin="@dimen/dp_5"
+    android:padding="@dimen/dp_5"
     android:textColor="@color/black"
-    android:textSize="14sp"
-    tools:text="Dropdown Item" />
+    android:textSize="@dimen/sp_14"
+    tools:text="Dropdown" />

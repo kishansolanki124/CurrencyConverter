@@ -12,6 +12,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.app.currencyconverter.R
 import com.app.currencyconverter.apputils.MySpinnerItemSelectionListener
+import com.app.currencyconverter.apputils.hideKeyboard
 import com.app.currencyconverter.apputils.showSnackBar
 import com.app.currencyconverter.databinding.ActivityMainBinding
 import com.app.currencyconverter.db.CurrencyEntity
@@ -83,6 +84,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupClickListeners() {
         binding.btConvert.setOnClickListener {
+            hideKeyboard(this)
             if (areFieldsValid()) {
                 updateListWithNewValues()
             }
@@ -122,7 +124,7 @@ class MainActivity : AppCompatActivity() {
         } else if (binding.etCurrencyInput.text.toString().toDouble() <= 0.0) {
             showSnackBar(getString(R.string.valid_amount))
             return false
-        } else if (currencyType.isEmpty()) {
+        } else if (currencyType.isEmpty() || currencyType == getString(R.string.select_currency)) {
             showSnackBar(getString(R.string.valid_currency_type))
             return false
         }
@@ -131,6 +133,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateSpinnerList() {
         currencyTypeList.clear()
+        currencyTypeList.add(getString(R.string.select_currency))
         for (item in currencyAndTypeList) {
             currencyTypeList.add(item.currencyType)
         }

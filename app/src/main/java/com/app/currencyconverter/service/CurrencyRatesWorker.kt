@@ -27,10 +27,7 @@ class CurrencyRatesWorker(appContext: Context, workerParameters: WorkerParameter
     Worker(appContext, workerParameters) {
 
     private val job = SupervisorJob()
-
-    //30 minutes = 1800000
-    //1 nub = 60000
-    private val minutes30 = 60000//todo work here, change to 30 minute, now its 1 min
+    private val minutes30 = 1800000
     private val scope = CoroutineScope(Dispatchers.IO + job)
     private lateinit var repository: CurrencyRepository
     private var apiEndPointsInterface =

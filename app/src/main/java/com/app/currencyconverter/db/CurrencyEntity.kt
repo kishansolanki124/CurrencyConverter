@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = DatabaseConstants.DBEntity.table_currency)
 class CurrencyEntity(
-    @PrimaryKey @ColumnInfo(name = "currencyType") var currencyType: String,
-    @ColumnInfo(name = "currencyAmount") var currencyAmount: Double
+    @PrimaryKey @ColumnInfo(name = "currency_type") var currencyType: String,
+    @ColumnInfo(name = "currency_amount") var currencyAmount: Double
 )

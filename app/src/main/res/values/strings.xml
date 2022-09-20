@@ -3,5 +3,6 @@
     <string name="hint_enter_amount">Enter Amount</string>
     <string name="valid_amount">Kindly enter valid Amount</string>
     <string name="valid_currency_type">Kindly select currency Type</string>
+    <string name="select_currency">Select</string>
     <string name="convert">convert</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.app.currencyconverter.network
 
-import android.util.Log
 import com.app.currencyconverter.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -41,9 +40,6 @@ object RetrofitFactory {
                         val requestBuilder = original.newBuilder()
                         val request = requestBuilder.build()
                         val response = chain.proceed(request)
-                        //todo remove this
-                        Log.e("Request Headers", request.headers.toString())
-                        Log.e("Response Body", response.body.toString())
                         when (response.code) {
                             HttpURLConnection.HTTP_OK -> return@Interceptor response
                         }
